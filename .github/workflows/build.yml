@@ -1,18 +1,36 @@
 
-name: Build AdvancedFractions
+name: AdvancedFractions - Clean Build
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: advancedfractions-build
+  cancel-in-progress: true
 
 jobs:
   build:
+    name: Compile plugin
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout latest main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Show build revision
+        run: |
+          echo "Branch: $(git branch --show-current)"
+          echo "Commit: $(git rev-parse HEAD)"
+          echo "Commit message: $(git log -1 --pretty=%s)"
 
       - name: Set up Java 17
         uses: actions/setup-java@v4
@@ -21,11 +39,27 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: Build with Maven
-        run: mvn -B clean package
+      - name: Verify source code
+        run: |
+          echo "Checking AdvancedFractions.java..."
+          test -f src/main/java/ru/advanced/fractions/AdvancedFractions.java
+          if grep -n "getOfflinePlayerIfCached" src/main/java/ru/advanced/fractions/AdvancedFractions.java; then
+            echo "::error::Old unsupported Bukkit method found!"
+            exit 1
+          fi
+          echo "Source check passed."
 
-      - name: Upload plugin JAR
+      - name: Build with Maven
+        run: mvn -U --no-transfer-progress clean package
+
+      - name: Show generated JAR
+        run: |
+          find target -maxdepth 1 -type f -name "*.jar" -print
+          test -n "$(find target -maxdepth 1 -type f -name '*.jar' -print -quit)"
+
+      - name: Upload plugin
         uses: actions/upload-artifact@v4
         with:
           name: AdvancedFractions
-          path: target/AdvancedFractions-*.jar
+          path: target/*.jar
+          if-no-files-found: error
