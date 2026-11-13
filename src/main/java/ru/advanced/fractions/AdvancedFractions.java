@@ -24,7 +24,10 @@ public class AdvancedFractions extends JavaPlugin {
   }return true;
  }
  private record Invite(UUID inviter,String fraction,long expires){} private record OfflinePlayerLookup(UUID uuid){}
- private OfflinePlayerLookup offline(String name){org.bukkit.OfflinePlayer op=getServer().getOfflinePlayerIfCached(name);return op==null?null:new OfflinePlayerLookup(op.getUniqueId());}
+private OfflinePlayerLookup offline(String name) {
+    org.bukkit.OfflinePlayer op = getServer().getOfflinePlayer(name);
+    return op == null ? null : new OfflinePlayerLookup(op.getUniqueId());
+}
  private void returnAsync(Player p,CompletableFuture<Void> f,String success){f.whenComplete((v,e)->getServer().getScheduler().runTask(this,()->p.sendMessage(col(e==null?success:"&cОперация не выполнена: ошибка базы данных."))));}
  private boolean msg(CommandSender s,String key){s.sendMessage(col(getConfig().getString("messages.prefix","")+getConfig().getString("messages."+key,"&cОшибка.")));return true;}
  private String col(String s){return ColorUtil.color(s);} public FractionManager getFractions(){return fractions;}public MemberManager getMembers(){return members;}
