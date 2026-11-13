@@ -1,0 +1,37 @@
+settings:
+  invite-expire-seconds: 60
+  government-wave-cooldown-seconds: 300
+  department-cooldown-seconds: 5
+  payday-minutes: 60
+  database-file: fractions.db
+  starting-balance: 0.0
+  use-vault-economy: true
+fractions:
+  gov:
+    display-name: "&6Правительство"
+    government-wave: true
+    department: true
+    ranks: ["Стажёр", "Помощник", "Секретарь", "Специалист", "Начальник отдела", "Заместитель", "Министр", "Советник", "Вице-губернатор", "Губернатор"]
+    salaries: [100, 150, 200, 250, 350, 450, 550, 650, 800, 1000]
+  fsb:
+    display-name: "&9ФСБ"
+    government-wave: true
+    department: true
+    ranks: ["Кадет", "Сотрудник", "Старший сотрудник", "Оперуполномоченный", "Старший опер", "Начальник отдела", "Заместитель", "Советник", "Замдиректора", "Директор"]
+    salaries: [100, 150, 200, 250, 350, 450, 550, 650, 800, 1000]
+  mvd:
+    display-name: "&bМВД"
+    government-wave: true
+    department: true
+    ranks: ["Курсант", "Полицейский", "Сержант", "Старший сержант", "Прапорщик", "Лейтенант", "Капитан", "Майор", "Замминистра", "Министр"]
+    salaries: [100, 150, 200, 250, 350, 450, 550, 650, 800, 1000]
+  opg:
+    display-name: "&cОПГ"
+    government-wave: false
+    department: false
+    ranks: ["Новичок", "Боец", "Проверенный", "Ветеран", "Бригадир", "Правая рука", "Заместитель", "Авторитет", "Смотрящий", "Лидер"]
+    salaries: [50, 75, 100, 125, 150, 200, 250, 300, 400, 500]
+messages:
+  prefix: "&8[&6Фракции&8] "
+  no-permission: "&cНедостаточно прав."
+  not-member: "&cВы не состоите во фракции."

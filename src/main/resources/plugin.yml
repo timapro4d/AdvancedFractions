@@ -1,0 +1,25 @@
+name: AdvancedFractions
+version: 1.0.0
+main: ru.advanced.fractions.AdvancedFractions
+api-version: '1.20'
+softdepend: [Vault, PlaceholderAPI]
+commands:
+  fraction: {aliases: [fmenu], description: Меню фракции}
+  invite: {description: Пригласить игрока}
+  faccept: {description: Принять приглашение}
+  fdeny: {description: Отклонить приглашение}
+  uninvite: {description: Уволить игрока}
+  giverank: {description: Изменить ранг}
+  fwarn: {description: Выдать выговор}
+  unfwarn: {description: Снять выговор}
+  f: {description: Фракционный чат}
+  r: {description: Рация}
+  fb: {description: НонРП чат фракции}
+  rb: {description: НонРП рация}
+  d: {description: Чат департамента}
+  gov: {description: Государственная волна}
+  freload: {description: Перезагрузить конфиги}
+  setleader: {description: Назначить лидера}
+permissions:
+  fractions.admin: {default: op}
+  fractions.use: {default: true}
